@@ -15,8 +15,6 @@
 ;;
 ;;; Commentary:
 ;;
-;;
-;;
 ;;; Code:
 
 (defgroup repeat-todo nil

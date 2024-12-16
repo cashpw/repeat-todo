@@ -5,6 +5,6 @@
 
 Set special repeaters for =org-mode= TODOs:
 
-- Mon/Tues/Wed/... =:REPEAT: M T W R F Sa Su=
-- Weekdays =:REPEAT: weekday=
-- Weekends =:REPEAT: weekend=
+- Weekdays: =:REPEAT: weekday=
+- Weekends:  =:REPEAT: weekend=
+- Custom days: Names (=:REPEAT: M W F=) or numbers (=REPEAT: 1 3 5=)
