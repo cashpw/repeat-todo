@@ -1,0 +1,10 @@
+:PROPERTIES:
+:LAST_MODIFIED: [2024-12-16 Mon 10:50]
+:END:
+#+title: repeat-todo
+
+Set special repeaters for =org-mode= TODOs:
+
+- Mon/Tues/Wed/... =:REPEAT: M T W R F Sa Su=
+- Weekdays =:REPEAT: weekday=
+- Weekends =:REPEAT: weekend=
