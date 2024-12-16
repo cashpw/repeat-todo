@@ -66,9 +66,9 @@ One of:
   (let ((case-fold-search nil))
     (cond
      ((string-match "weekday\\(s\\)?" prop-value)
-      '(0 1 2 3 4))
+      '(1 2 3 4 5))
      ((string-match "weekend\\(s\\)?" prop-value)
-      '(5 6))
+      '(6 0))
      (t
       (let ((repeat-days '())
             (prop-values (string-split " " prop-value 'omit-nulls)))
