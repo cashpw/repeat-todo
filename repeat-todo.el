@@ -121,28 +121,23 @@ WEEKDAYS: See `repeat-todo--weekdays'."
 
 (defun repeat-todo--reschedule (point-or-marker)
   "Reschedule heading at POINT-OR-MARKER to the next appropriate weekday."
-  (if (and repeat-todo-mode
-           (org-entry-is-done-p)
-           (repeat-todo--p point-or-marker))
-      (when-let* ((weekdays
-                   (repeat-todo--parse-property
-                    (or (org-entry-get point-or-marker repeat-todo--property)
-                        "")))
-                  (scheduled-time (org-get-scheduled-time point-or-marker))
-                  (next-scheduled-time
-                   ;; Schedule to the day before the next schedule time because
-                   ;; it'll get moved forward one day past when we schedule it
-                   (time-subtract
-                    (repeat-todo--next-scheduled-time
-                     scheduled-time weekdays)
-                    (days-to-time 1)))
-                  (hh-mm (format-time-string "%H:%M" next-scheduled-time))
-                  (format-string
-                   (if (string= hh-mm "00:00")
-                       "%F"
-                     "%F %H:%M")))
-        (org-schedule
-         nil (format-time-string format-string next-scheduled-time)))))
+  (when (and repeat-todo-mode
+             (org-entry-is-done-p)
+             (repeat-todo--p point-or-marker))
+    (org-schedule
+     nil
+     (string-replace
+      " 00:00" ""
+      (format-time-string
+       "%F %H:%M"
+       ;; Schedule to the day before the next schedule time because
+       ;; it'll get moved forward one day past when we schedule it
+       (time-subtract
+        (repeat-todo--next-scheduled-time
+         (org-get-scheduled-time point-or-marker)
+         (repeat-todo--parse-property
+          (or (org-entry-get point-or-marker repeat-todo--property) "")))
+        (days-to-time 1)))))))
 
 (provide 'repeat-todo)
 ;;; repeat-todo.el ends here
