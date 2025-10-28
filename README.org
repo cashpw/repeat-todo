@@ -1,5 +1,5 @@
 :PROPERTIES:
-:LAST_MODIFIED: [2024-12-16 Mon 13:08]
+:LAST_MODIFIED: [2025-10-28 Tue 01:32]
 :END:
 #+title: repeat-todo
 
@@ -44,7 +44,8 @@ SCHEDULED: <... ++1d>
 
 ,#+begin_src emacs-lisp :tangle config.el
 (use-package! repeat-todo
-  :after org)
+  :after org
+  (repeat-todo-mode-enable))
 ,#+end_src
 #+end_src
 

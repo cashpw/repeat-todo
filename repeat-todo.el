@@ -27,13 +27,13 @@
   "Enable repeat-todo mode."
   (interactive)
   (setq repeat-todo-mode t)
-  (add-hook 'org-after-todo-state-change 'repeat-todo--reschedule))
+  (add-hook 'org-after-todo-state-change-hook 'repeat-todo--reschedule))
 
 (defun repeat-todo-mode-disable ()
   "Enable repeat-todo mode."
   (interactive)
   (setq repeat-todo-mode nil)
-  (remove-hook 'org-after-todo-state-change 'repeat-todo--reschedule))
+  (remove-hook 'org-after-todo-state-change-hook 'repeat-todo--reschedule))
 
 (defun repeat-todo-mode-toggle ()
   "Enable repeat-todo mode."
@@ -129,25 +129,27 @@ WEEKDAYS: See `repeat-todo--weekdays'."
               (time-add new-scheduled-time (days-to-time 1))))
       new-scheduled-time)))
 
-(defun repeat-todo--reschedule (point-or-marker)
+(defun repeat-todo--reschedule (&optional point-or-marker)
   "Reschedule heading at POINT-OR-MARKER to the next appropriate weekday."
-  (when (and repeat-todo-mode
-             (org-entry-is-done-p)
-             (repeat-todo--p point-or-marker))
-    (org-schedule
-     nil
-     (string-replace
-      " 00:00" ""
-      (format-time-string
-       "%F %H:%M"
-       ;; Schedule to the day before the next schedule time because
-       ;; it'll get moved forward one day past when we schedule it
-       (time-subtract
-        (repeat-todo--next-scheduled-time
-         (org-get-scheduled-time point-or-marker)
-         (repeat-todo--parse-property
-          (or (org-entry-get point-or-marker repeat-todo--property) "")))
-        (days-to-time 1)))))))
+  (let ((point-or-marker (or point-or-marker
+                             (point))))
+    (when (and repeat-todo-mode
+               (org-entry-is-done-p)
+               (repeat-todo--p point-or-marker))
+      (org-schedule
+       nil
+       (string-replace
+        " 00:00" ""
+        (format-time-string
+         "%F %H:%M"
+         ;; Schedule to the day before the next schedule time because
+         ;; it'll get moved forward one day past when we schedule it
+         (time-subtract
+          (repeat-todo--next-scheduled-time
+           (org-get-scheduled-time point-or-marker)
+           (repeat-todo--parse-property
+            (or (org-entry-get point-or-marker repeat-todo--property) "")))
+          (days-to-time 1))))))))
 
 (provide 'repeat-todo)
 ;;; repeat-todo.el ends here
