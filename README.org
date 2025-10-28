@@ -1,5 +1,5 @@
 :PROPERTIES:
-:LAST_MODIFIED: [2025-10-28 Tue 01:32]
+:LAST_MODIFIED: [2025-10-28 Tue 01:38]
 :END:
 #+title: repeat-todo
 
@@ -35,18 +35,20 @@ SCHEDULED: <... ++1d>
 
 ** Doom Emacs
 
-#+begin_src org
-,#+begin_src emacs-lisp :tangle packages.el
+In =packages.el=:
+
+#+begin_src emacs-lisp
 (package! repeat-todo
   :recipe (:host github
            :repo "cashpw/repeat-todo"))
-,#+end_src
+#+end_src
 
-,#+begin_src emacs-lisp :tangle config.el
+In =config.el=:
+
+#+begin_src emacs-lisp
 (use-package! repeat-todo
   :after org
   (repeat-todo-mode-enable))
-,#+end_src
 #+end_src
 
 ** Vanilla Emacs
