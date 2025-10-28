@@ -9,13 +9,15 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/cashweaver/repeat-todo
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") (dash "2.20.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; Commentary:
 ;;
 ;;; Code:
+
+(require 'dash)
 
 (defgroup repeat-todo nil
   "Special repeaters for `org-mode' TODOs.")
